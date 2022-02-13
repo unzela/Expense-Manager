@@ -1,0 +1,38 @@
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="Description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortFunction()">Description</th>
+    <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+  </ng-container>
+  <ng-container matColumnDef="IsExpense">
+    <th mat-header-cell *matHeaderCellDef>Type</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.isExpense ? "Expense" : "Income" }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Value">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+    <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+  </ng-container>
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="updateEntry(element)" mat-raised-button color="primary">
+        <mat-icon color="white">edit</mat-icon><b>Edit</b>
+      </button>
+      <button [routerLink]="['/delete-entry', element.id]" mat-raised-button color="warn">
+        <mat-icon color="white">delete_sweep</mat-icon><b>Delete</b>
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator [length]="total" [pageSize]="pagesize" [pageSizeOptions]="page" (page)="onPaginate($event)">
+  ></mat-paginator>
+
+<a href ="https://localhost:44391/api/entries/csv" download="employee.csv" > <b>Export</b>
+</a>

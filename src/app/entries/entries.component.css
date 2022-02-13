@@ -1,0 +1,10 @@
+table {
+  width: 100%;
+}
+.mat-raised-button {
+  width: 100px;
+  margin: 0 20px 0 0;
+}
+.mat-icon {
+  margin: 0 5px 0 0;
+}
